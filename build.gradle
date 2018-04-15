@@ -1,0 +1,113 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'maven'
+    id 'signing'
+    id 'com.github.johnrengelman.shadow' version '2.0.3'
+}
+
+sourceCompatibility = 1.8
+group = 'com.github.masonm'
+archivesBaseName = 'wiremock-stub-mapping-tracker-extension'
+version = '0.1'
+
+repositories {
+    mavenCentral()
+}
+
+task fatJar (type: Jar) {
+    classifier = 'standalone'
+
+    manifest {
+        attributes("Main-Class": "com.github.masonm.StubMappingTrackerExtensionStandalone")
+    }
+
+    from {
+        configurations.compile.plus(configurations.shadow).collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+
+    with jar
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allJava
+}
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+artifacts {
+    archives javadocJar, sourcesJar, fatJar
+}
+
+signing {
+    required { gradle.taskGraph.hasTask("uploadArchives") }
+    sign configurations.archives
+}
+
+if (!hasProperty('ossrhUsername') || !hasProperty('ossrhPassword')) {
+    ext.ossrhUsername = ''
+    ext.ossrhPassword = ''
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'wiremock-stub-mapping-tracker-extension'
+                packaging 'jar'
+                description 'Wiremock extensions to track stub mapping usage'
+                url 'https://github.com/MasonM/wiremock-stub-mapping-tracker-extension'
+
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/license/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id  'masonm'
+                        name 'Mason Malone'
+                    }
+                }
+
+                scm {
+                    connection 'scm:git:git://github.com/MasonM/wiremock-stub-mapping-tracker-extension.git'
+                    developerConnection 'scm:git:ssh://github.com:MasonM/wiremock-stub-mapping-tracker-extension.git'
+                    url 'https://github.com/MasonM/wiremock-stub-mapping-tracker-extension'
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+    shadow group: 'com.github.tomakehurst', name: 'wiremock', version: '2.14.0'
+
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile group: 'org.hamcrest', name: 'hamcrest-all', version: '1.3'
+    testCompile group: 'org.jmock', name: 'jmock', version: '2.5.1'
+    testCompile group: 'org.jmock', name: 'jmock-junit4', version: '2.5.1'
+    testCompile group: 'org.skyscreamer', name: 'jsonassert', version: '1.2.3'
+    testCompile group: 'com.toomuchcoding.jsonassert', name: 'jsonassert', version: '0.4.7'
+    testCompile group: 'org.apache.httpcomponents', name: 'httpmime', version: '4.5'
+    testCompile group: 'com.github.tomakehurst', name: 'wiremock', version: '2.14.0'
+    testCompile group: 'com.github.tomakehurst', name: 'wiremock', version: '2.14.0', classifier: 'tests'
+}
