@@ -8,7 +8,7 @@ plugins {
 
 sourceCompatibility = 1.8
 group = 'com.github.masonm'
-archivesBaseName = 'wiremock-stub-mapping-tracker-extension'
+archivesBaseName = 'wiremock-stub-mapping-tracker'
 version = '0.1'
 
 repositories {
@@ -68,10 +68,10 @@ uploadArchives {
             }
 
             pom.project {
-                name 'wiremock-stub-mapping-tracker-extension'
+                name 'wiremock-stub-mapping-tracker'
                 packaging 'jar'
                 description 'Wiremock extensions to track stub mapping usage'
-                url 'https://github.com/MasonM/wiremock-stub-mapping-tracker-extension'
+                url 'https://github.com/MasonM/wiremock-stub-mapping-tracker'
 
                 licenses {
                     license {
@@ -89,9 +89,9 @@ uploadArchives {
                 }
 
                 scm {
-                    connection 'scm:git:git://github.com/MasonM/wiremock-stub-mapping-tracker-extension.git'
-                    developerConnection 'scm:git:ssh://github.com:MasonM/wiremock-stub-mapping-tracker-extension.git'
-                    url 'https://github.com/MasonM/wiremock-stub-mapping-tracker-extension'
+                    connection 'scm:git:git://github.com/MasonM/wiremock-stub-mapping-tracker.git'
+                    developerConnection 'scm:git:ssh://github.com:MasonM/wiremock-stub-mapping-tracker.git'
+                    url 'https://github.com/MasonM/wiremock-stub-mapping-tracker'
                 }
             }
         }
