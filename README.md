@@ -7,7 +7,7 @@ wiremock-stub-mapping-tracker is a set of [WireMock](http://wiremock.org) extens
 
 # Building
 
-Run `gradle jar` to build the JAR without dependencies or `gradle fatJar` to build a standalone JAR. These will be placed in `build/libs/`.
+Run `./gradlew jar` to build the JAR without dependencies or `./gradlew fatJar` to build a standalone JAR. These will be placed in `build/libs/`.
 
 # Running
 
@@ -33,9 +33,9 @@ new WireMockServer(wireMockConfig()
 
 # Usage
 
-* `GET /mappings_tracker/matched` - Return all stub mappings that have matched a request
-* `GET /mappings_tracker/unmatched` - Return all stub mappings that haven't matched a request
-* `POST /mappings_tracker/reset` - Clear list of tracked stub mappings
-* `DELETE /mappings_tracker/unmatched` - Delete all stub mappings that haven't matched a request
+* `GET /__admin/mappings_tracker/matched` - Return all stub mappings that have matched a request
+* `GET /__admin/mappings_tracker/unmatched` - Return all stub mappings that haven't matched a request
+* `POST /__admin/mappings_tracker/reset` - Clear list of tracked stub mappings
+* `DELETE /__admin/mappings_tracker/unmatched` - Delete all stub mappings that haven't matched a request
 
 
