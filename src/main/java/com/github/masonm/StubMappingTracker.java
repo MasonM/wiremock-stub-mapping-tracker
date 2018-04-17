@@ -2,20 +2,19 @@ package com.github.masonm;
 
 import com.github.tomakehurst.wiremock.stubbing.StubMapping;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.HashSet;
+import java.util.Set;
 
 public enum StubMappingTracker {
     INSTANCE;
-    private final Map<UUID, Boolean> tracker = new HashMap<>();
+    private final Set<StubMapping> matchedStubMappings = new HashSet<>();
 
     public void clear() {
-        tracker.clear();
+        matchedStubMappings.clear();
     }
 
     public Boolean isMatched(StubMapping stubMapping) {
-        return tracker.containsKey(stubMapping.getId());
+        return matchedStubMappings.contains(stubMapping);
     }
 
     public Boolean isNotMatched(StubMapping stubMapping) {
@@ -23,6 +22,6 @@ public enum StubMappingTracker {
     }
 
     public void add(StubMapping stubMapping) {
-        tracker.putIfAbsent(stubMapping.getId(), true);
+        matchedStubMappings.add(stubMapping);
     }
 }
