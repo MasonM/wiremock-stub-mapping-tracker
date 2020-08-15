@@ -110,3 +110,10 @@ dependencies {
     testCompile group: 'com.github.tomakehurst', name: 'wiremock', version: wiremockVersion
     testCompile group: 'com.github.tomakehurst', name: 'wiremock', version: wiremockVersion, classifier: 'tests'
 }
+
+test {
+    testLogging {
+        events "failed"
+        exceptionFormat "full"
+    }
+}
