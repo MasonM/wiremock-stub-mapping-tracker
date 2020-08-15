@@ -1,6 +1,6 @@
 # Overview
 
-[![Build Status](https://travis-ci.org/MasonM/wiremock-stub-mapping-tracker.svg?branch=master)](https://travis-ci.org/MasonM/wiremock-unused-stubs-extension)
+[![Build Status](https://travis-ci.org/MasonM/wiremock-stub-mapping-tracker.svg?branch=master)](https://travis-ci.org/MasonM/wiremock-stub-mapping-tracker)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.masonm/wiremock-stub-mapping-tracker/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.masonm/wiremock-stub-mapping-tracker)
 
 wiremock-stub-mapping-tracker is a set of [WireMock](http://wiremock.org) extensions for tracking which stub mappings have been used in a request and easily deleting unmatched mappings. This is useful in conjunction with [Record and Playback](http://wiremock.org/docs/record-playback-legacy/) for pruning generated stub mappings. Tracking is done independently of the request journal.
